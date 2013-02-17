@@ -44,15 +44,15 @@ Then /I should see all of the movies/ do
 
   assert(all("table#movies tr").count == Movie.all.count + 1)
 
-#  movies = Movie.all
+  # movies = Movie.all
 
-#  if movies.size == 10
-#    movies.each do |movie|
-#      assert page.body =~ /#{movie.title}/m, "#{movie.title} did not appear"
-#    end
-#  else
-#    false
-#  end
+  # if movies.size == 10
+  # movies.each do |movie|
+  # assert page.body =~ /#{movie.title}/m, "#{movie.title} did not appear"
+  # end
+  # else
+  # false
+  # end
 end
 
 Then /I should not see any movies/ do
@@ -124,6 +124,4 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
     rating = "ratings_" + r
     uncheck == true ? uncheck(rating) : check(rating)
   end
-end
-
-
+  end
