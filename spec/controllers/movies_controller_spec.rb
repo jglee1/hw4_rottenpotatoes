@@ -58,7 +58,47 @@ describe MoviesController do
             Movie.stub(:find_all_by_director)
       get :same_director, {:id => @movie_id}
             response.should redirect_to(movies_path)
-      end
+        end
+  end
+
+  describe 'create a new movie' do
+    it 'should render the new-movie template' do
+      get :new
+      response.should render_template 'new'
     end
+    it 'should call a model method to persist data' do
+      movie = stub('new movie').as_null_object
+      Movie.should_receive(:create!).and_return(movie)
+
+      post :create, {:movie => movie}
+    end
+    it 'should render home template' do
+      movie = stub('new movie').as_null_object
+      Movie.stub(:create!).and_return(movie)
+
+      post :create, {:movie => movie}
+      response.should redirect_to(movies_path)
+    end
+  end
+
+  describe 'delete an existing movie' do
+    it 'should render edit movie template' do
+      Movie.stub(:find)
+      get :edit, {:id => 5}
+      response.should render_template 'edit'
+    end
+    it 'should call a model method to update data' do
+      my_movie = mock('a movie').as_null_object
+
+      Movie.should_receive(:find).and_return(my_movie)
+      my_movie.should_receive(:destroy)
+
+      delete :destroy, {:id => 1}
+    end
+    it 'should render show details template' do
+
+    end
+  end
+
 
 end
